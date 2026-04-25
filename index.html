@@ -61,46 +61,52 @@
             padding-bottom: 10px;
         }
 
-        .calendar-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+        .month-page {
+            display: none;
         }
 
-        .month {
+        .month-page.active {
+            display: block;
+        }
+
+        .month-calendar {
             background: #f8f9fa;
             border-radius: 15px;
-            padding: 20px;
+            padding: 30px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
         }
 
-        .month h3 {
+        .month-calendar h2 {
             color: #667eea;
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 1.3em;
+            margin-bottom: 30px;
+            font-size: 2em;
+            border: none;
+            padding: 0;
         }
 
         .weekdays {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
 
         .weekday {
             text-align: center;
             font-weight: bold;
             color: #667eea;
-            font-size: 0.9em;
-            padding: 8px;
+            font-size: 1em;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
         }
 
         .days {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 10px;
         }
 
         .day {
@@ -114,9 +120,9 @@
             cursor: pointer;
             border: 2px solid #e0e0e0;
             transition: all 0.3s ease;
-            padding: 5px;
+            padding: 8px;
             text-align: center;
-            font-size: 0.8em;
+            font-size: 0.9em;
         }
 
         .day:hover {
@@ -126,13 +132,80 @@
         }
 
         .day-number {
-            font-size: 0.7em;
+            font-size: 0.75em;
             color: #999;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .emoji {
-            font-size: 1.8em;
+            font-size: 2.2em;
+        }
+
+        .day.empty {
+            cursor: default;
+            background: transparent;
+            border: none;
+        }
+
+        .day.empty:hover {
+            background: transparent;
+            transform: none;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .month-selector {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .month-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .month-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .month-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
         }
 
         .notes-section {
@@ -165,12 +238,21 @@
                 font-size: 2em;
             }
 
-            .calendar-container {
-                grid-template-columns: 1fr;
+            .month-calendar {
+                padding: 20px;
             }
 
             .content {
                 padding: 20px;
+            }
+
+            .month-selector {
+                gap: 5px;
+            }
+
+            .month-btn {
+                padding: 8px 12px;
+                font-size: 0.8em;
             }
         }
 
@@ -178,10 +260,11 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            margin: 30px 0;
             padding: 20px;
             background: white;
             border-radius: 10px;
+            border: 2px solid #e0e0e0;
         }
 
         .legend-item {
@@ -240,7 +323,18 @@
                     </div>
                 </div>
 
-                <div class="calendar-container" id="calendarContainer"></div>
+                <!-- Month Selector -->
+                <div class="month-selector" id="monthSelector"></div>
+
+                <!-- Calendar Pages -->
+                <div id="calendarPages"></div>
+
+                <!-- Navigation Buttons -->
+                <div class="navigation">
+                    <button class="nav-button" id="prevBtn" onclick="previousMonth()">← Previous</button>
+                    <button class="nav-button" id="currentBtn" onclick="goToCurrentMonth()">Today</button>
+                    <button class="nav-button" id="nextBtn" onclick="nextMonth()">Next →</button>
+                </div>
             </div>
 
             <!-- Notes Section -->
@@ -282,6 +376,7 @@
                        'July', 'August', 'September', 'October', 'November', 'December'];
         
         const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        let currentMonth = new Date().getMonth(); // Current month (0-11)
 
         // Load stored tasks from localStorage
         function getStoredTasks() {
@@ -299,18 +394,25 @@
             return beachEmojis[Math.floor(Math.random() * beachEmojis.length)];
         }
 
-        // Create calendar
-        function createCalendar() {
-            const container = document.getElementById('calendarContainer');
+        // Create all month pages
+        function createAllMonths() {
+            const pagesContainer = document.getElementById('calendarPages');
             const tasks = getStoredTasks();
 
             for (let month = 0; month < 12; month++) {
-                const monthDiv = document.createElement('div');
-                monthDiv.className = 'month';
+                const monthPage = document.createElement('div');
+                monthPage.className = 'month-page';
+                monthPage.id = `month-${month}`;
+                if (month === currentMonth) {
+                    monthPage.classList.add('active');
+                }
 
-                const monthTitle = document.createElement('h3');
+                const monthCalendar = document.createElement('div');
+                monthCalendar.className = 'month-calendar';
+
+                const monthTitle = document.createElement('h2');
                 monthTitle.textContent = months[month];
-                monthDiv.appendChild(monthTitle);
+                monthCalendar.appendChild(monthTitle);
 
                 // Weekday headers
                 const weekdaysDiv = document.createElement('div');
@@ -322,7 +424,7 @@
                     dayDiv.textContent = day;
                     weekdaysDiv.appendChild(dayDiv);
                 });
-                monthDiv.appendChild(weekdaysDiv);
+                monthCalendar.appendChild(weekdaysDiv);
 
                 // Days
                 const daysDiv = document.createElement('div');
@@ -334,6 +436,7 @@
                 // Empty cells before month starts
                 for (let i = 0; i < firstDay; i++) {
                     const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'day empty';
                     daysDiv.appendChild(emptyDiv);
                 }
 
@@ -370,13 +473,63 @@
                     daysDiv.appendChild(dayDiv);
                 }
 
-                monthDiv.appendChild(daysDiv);
-                container.appendChild(monthDiv);
+                monthCalendar.appendChild(daysDiv);
+                monthPage.appendChild(monthCalendar);
+                pagesContainer.appendChild(monthPage);
             }
         }
 
-        // Initialize calendar when page loads
-        document.addEventListener('DOMContentLoaded', createCalendar);
+        // Create month selector buttons
+        function createMonthSelector() {
+            const selector = document.getElementById('monthSelector');
+            for (let i = 0; i < 12; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'month-btn';
+                btn.textContent = months[i].substring(0, 3);
+                if (i === currentMonth) {
+                    btn.classList.add('active');
+                }
+                btn.addEventListener('click', () => goToMonth(i));
+                selector.appendChild(btn);
+            }
+        }
+
+        // Go to specific month
+        function goToMonth(monthIndex) {
+            const pages = document.querySelectorAll('.month-page');
+            const buttons = document.querySelectorAll('.month-btn');
+            
+            pages.forEach(page => page.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`month-${monthIndex}`).classList.add('active');
+            buttons[monthIndex].classList.add('active');
+            currentMonth = monthIndex;
+        }
+
+        // Navigate to next month
+        function nextMonth() {
+            currentMonth = (currentMonth + 1) % 12;
+            goToMonth(currentMonth);
+        }
+
+        // Navigate to previous month
+        function previousMonth() {
+            currentMonth = (currentMonth - 1 + 12) % 12;
+            goToMonth(currentMonth);
+        }
+
+        // Go to current month
+        function goToCurrentMonth() {
+            const today = new Date();
+            goToMonth(today.getMonth());
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createAllMonths();
+            createMonthSelector();
+        });
     </script>
 </body>
 </html>
