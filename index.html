@@ -137,10 +137,26 @@
             transform: scale(1.05);
         }
 
+        .day.has-task {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: 2px solid #667eea;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .day.has-task .day-number {
+            color: white;
+            font-weight: bold;
+        }
+
+        .day.has-task .emoji {
+            filter: brightness(1.2);
+        }
+
         .day-number {
             font-size: 0.75em;
             color: #999;
             margin-top: 4px;
+            transition: all 0.3s ease;
         }
 
         .emoji {
@@ -218,25 +234,35 @@
             background: #f8f9fa;
             border-radius: 15px;
             padding: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
 
         .note {
             background: white;
             border-left: 5px solid #667eea;
             padding: 20px;
-            margin-bottom: 20px;
             border-radius: 8px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .note:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .note h3 {
             color: #667eea;
             margin-bottom: 10px;
+            font-size: 1.1em;
         }
 
         .note p {
             color: #555;
             line-height: 1.6;
+            font-size: 0.95em;
         }
 
         .emoji-legend {
@@ -407,10 +433,6 @@
         }
 
         /* Close Modal */
-        .modal {
-            animation: fadeIn 0.3s ease;
-        }
-
         .close-modal {
             color: #999;
             float: right;
@@ -439,6 +461,10 @@
             .sidebar-widget {
                 flex: 1;
                 min-width: 250px;
+            }
+
+            .notes-section {
+                grid-template-columns: 1fr;
             }
         }
 
@@ -472,6 +498,11 @@
                 margin: 20px;
                 padding: 30px 20px;
             }
+
+            .notes-section {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -487,7 +518,7 @@
                 <!-- Calendar Section -->
                 <div class="section">
                     <h2>📅 My 2026 Calendar</h2>
-                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get a motivational boost!</p>
+                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get a motivational boost! Days with tasks are highlighted! ✨</p>
                     
                     <div class="emoji-legend">
                         <div class="legend-item">
@@ -535,28 +566,33 @@
                     <h2>📝 Subject Notes</h2>
                     <div class="notes-section">
                         <div class="note">
-                            <h3>📚 Programming</h3>
-                            <p>Learning web development with HTML, CSS, and JavaScript. Building responsive websites and interactive applications. Currently focusing on front-end development best practices.</p>
+                            <h3>📚 Honors Language Arts</h3>
+                            <p>Exploring literature, writing, and communication skills. Analyzing texts, improving essay writing, and developing critical thinking through reading and discussions.</p>
                         </div>
 
                         <div class="note">
-                            <h3>🎨 Design</h3>
-                            <p>Exploring UI/UX design principles. Understanding color theory, typography, and user experience. Creating beautiful and functional interfaces.</p>
+                            <h3>🧪 Honors Science</h3>
+                            <p>Deep dive into scientific concepts, experiments, and research. Building lab skills and understanding the natural world through hands-on learning and analysis.</p>
                         </div>
 
                         <div class="note">
-                            <h3>🌐 Web Technologies</h3>
-                            <p>Diving deep into modern web technologies. Learning about APIs, databases, and cloud services. Building full-stack applications.</p>
+                            <h3>🎼 Concert 1</h3>
+                            <p>Learning musical performance, ensemble playing, and artistic expression. Developing confidence in music and preparing for concerts and performances.</p>
                         </div>
 
                         <div class="note">
-                            <h3>🚀 Projects</h3>
-                            <p>Working on personal projects to apply knowledge. Building portfolio pieces that showcase skills and creativity. Contributing to open-source projects.</p>
+                            <h3>🌍 Honors Social Studies</h3>
+                            <p>Understanding history, cultures, and societies. Analyzing global issues and developing informed perspectives on current events and historical contexts.</p>
                         </div>
 
                         <div class="note">
-                            <h3>💡 Goals</h3>
-                            <p>Becoming a skilled full-stack developer. Creating meaningful projects that help others. Continuously learning and growing in the tech industry.</p>
+                            <h3>➕ Algebra</h3>
+                            <p>Mastering algebraic concepts, equations, and problem-solving. Building strong math foundations for future advanced courses and real-world applications.</p>
+                        </div>
+
+                        <div class="note">
+                            <h3>🇫🇷 French 1</h3>
+                            <p>Learning French language fundamentals including vocabulary, grammar, and pronunciation. Building communication skills and cultural understanding of French-speaking regions.</p>
                         </div>
                     </div>
                 </div>
@@ -764,6 +800,11 @@
                     const dateKey = `${month}-${day}`;
                     const taskData = tasks[dateKey];
 
+                    // Add has-task class if task exists
+                    if (taskData && taskData.note) {
+                        dayDiv.classList.add('has-task');
+                    }
+
                     const emoji = document.createElement('span');
                     emoji.className = 'emoji';
                     emoji.textContent = taskData?.emoji || getRandomEmoji();
@@ -783,6 +824,8 @@
                                 note: note
                             };
                             saveTasks(tasks);
+                            // Add highlight
+                            dayDiv.classList.add('has-task');
                             alert(`Task saved: "${note}"`);
                         }
                     });
