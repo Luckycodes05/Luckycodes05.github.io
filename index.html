@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Lucky</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 20px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .calendar-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .month {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .month h3 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .weekday {
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.9em;
+            padding: 8px;
+        }
+
+        .days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            padding: 5px;
+            text-align: center;
+            font-size: 0.8em;
+        }
+
+        .day:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+            transform: scale(1.05);
+        }
+
+        .day-number {
+            font-size: 0.7em;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .emoji {
+            font-size: 1.8em;
+        }
+
+        .notes-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+        }
+
+        .note {
+            background: white;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .note h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .note p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .emoji-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-emoji {
+            font-size: 1.5em;
+        }
+
+        .legend-text {
+            color: #555;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏖️ Lucky's Space</h1>
+            <p>Welcome to my About Me website - Let's make waves! 🌊</p>
+        </div>
+
+        <div class="content">
+            <!-- Calendar Section -->
+            <div class="section">
+                <h2>📅 My 2026 Calendar</h2>
+                <p style="color: #666; margin-bottom: 20px;">Click on any day to add or view your tasks and notes!</p>
+                
+                <div class="emoji-legend">
+                    <div class="legend-item">
+                        <span class="legend-emoji">🏖️</span>
+                        <span class="legend-text">Relax/Break</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-emoji">🌊</span>
+                        <span class="legend-text">Study/Work</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-emoji">🏝️</span>
+                        <span class="legend-text">Project Work</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-emoji">🌅</span>
+                        <span class="legend-text">Exercise</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-emoji">🐚</span>
+                        <span class="legend-text">Creative Work</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-emoji">🏄</span>
+                        <span class="legend-text">Social/Fun</span>
+                    </div>
+                </div>
+
+                <div class="calendar-container" id="calendarContainer"></div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="section">
+                <h2>📝 Subject Notes</h2>
+                <div class="notes-section">
+                    <div class="note">
+                        <h3>📚 Programming</h3>
+                        <p>Learning web development with HTML, CSS, and JavaScript. Building responsive websites and interactive applications. Currently focusing on front-end development best practices.</p>
+                    </div>
+
+                    <div class="note">
+                        <h3>🎨 Design</h3>
+                        <p>Exploring UI/UX design principles. Understanding color theory, typography, and user experience. Creating beautiful and functional interfaces.</p>
+                    </div>
+
+                    <div class="note">
+                        <h3>🌐 Web Technologies</h3>
+                        <p>Diving deep into modern web technologies. Learning about APIs, databases, and cloud services. Building full-stack applications.</p>
+                    </div>
+
+                    <div class="note">
+                        <h3>🚀 Projects</h3>
+                        <p>Working on personal projects to apply knowledge. Building portfolio pieces that showcase skills and creativity. Contributing to open-source projects.</p>
+                    </div>
+
+                    <div class="note">
+                        <h3>💡 Goals</h3>
+                        <p>Becoming a skilled full-stack developer. Creating meaningful projects that help others. Continuously learning and growing in the tech industry.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const beachEmojis = ['🏖️', '🌊', '🏝️', '🌅', '🐚', '🏄'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+        
+        const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        // Load stored tasks from localStorage
+        function getStoredTasks() {
+            const stored = localStorage.getItem('calendarTasks');
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        // Save tasks to localStorage
+        function saveTasks(tasks) {
+            localStorage.setItem('calendarTasks', JSON.stringify(tasks));
+        }
+
+        // Get random beach emoji
+        function getRandomEmoji() {
+            return beachEmojis[Math.floor(Math.random() * beachEmojis.length)];
+        }
+
+        // Create calendar
+        function createCalendar() {
+            const container = document.getElementById('calendarContainer');
+            const tasks = getStoredTasks();
+
+            for (let month = 0; month < 12; month++) {
+                const monthDiv = document.createElement('div');
+                monthDiv.className = 'month';
+
+                const monthTitle = document.createElement('h3');
+                monthTitle.textContent = months[month];
+                monthDiv.appendChild(monthTitle);
+
+                // Weekday headers
+                const weekdaysDiv = document.createElement('div');
+                weekdaysDiv.className = 'weekdays';
+                const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                weekdays.forEach(day => {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'weekday';
+                    dayDiv.textContent = day;
+                    weekdaysDiv.appendChild(dayDiv);
+                });
+                monthDiv.appendChild(weekdaysDiv);
+
+                // Days
+                const daysDiv = document.createElement('div');
+                daysDiv.className = 'days';
+
+                // Get first day of month
+                const firstDay = new Date(2026, month, 1).getDay();
+                
+                // Empty cells before month starts
+                for (let i = 0; i < firstDay; i++) {
+                    const emptyDiv = document.createElement('div');
+                    daysDiv.appendChild(emptyDiv);
+                }
+
+                // Days of month
+                for (let day = 1; day <= daysInMonth[month]; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day';
+
+                    const dateKey = `${month}-${day}`;
+                    const taskData = tasks[dateKey];
+
+                    const emoji = document.createElement('span');
+                    emoji.className = 'emoji';
+                    emoji.textContent = taskData?.emoji || getRandomEmoji();
+                    dayDiv.appendChild(emoji);
+
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = day;
+                    dayDiv.appendChild(dayNumber);
+
+                    dayDiv.addEventListener('click', () => {
+                        const note = prompt(`Enter task for ${months[month]} ${day}:`);
+                        if (note !== null) {
+                            tasks[dateKey] = {
+                                emoji: taskData?.emoji || emoji.textContent,
+                                note: note
+                            };
+                            saveTasks(tasks);
+                            alert(`Task saved: "${note}"`);
+                        }
+                    });
+
+                    daysDiv.appendChild(dayDiv);
+                }
+
+                monthDiv.appendChild(daysDiv);
+                container.appendChild(monthDiv);
+            }
+        }
+
+        // Initialize calendar when page loads
+        document.addEventListener('DOMContentLoaded', createCalendar);
+    </script>
+</body>
+</html>
