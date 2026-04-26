@@ -13,7 +13,9 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
             min-height: 100vh;
             padding: 20px;
         }
@@ -22,7 +24,7 @@
             max-width: 1600px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 250px;
+            grid-template-columns: 1fr 280px;
             gap: 20px;
         }
 
@@ -38,6 +40,15 @@
             color: white;
             padding: 40px 20px;
             text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .header-content {
+            flex: 1;
+            text-align: center;
         }
 
         .header h1 {
@@ -49,6 +60,24 @@
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
+        }
+
+        .about-link {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .about-link:hover {
+            background: white;
+            color: #667eea;
+            transform: scale(1.05);
         }
 
         .content {
@@ -137,18 +166,18 @@
             transform: scale(1.05);
         }
 
-        .day.has-task {
+        .day.today {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: 2px solid #667eea;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        .day.has-task .day-number {
+        .day.today .day-number {
             color: white;
             font-weight: bold;
         }
 
-        .day.has-task .emoji {
+        .day.today .emoji {
             filter: brightness(1.2);
         }
 
@@ -263,6 +292,38 @@
             color: #555;
             line-height: 1.6;
             font-size: 0.95em;
+        }
+
+        .note textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .note textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .save-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .save-btn:hover {
+            background: #764ba2;
         }
 
         .emoji-legend {
@@ -389,60 +450,142 @@
             background: #764ba2;
         }
 
-        /* Spotify Links */
-        .spotify-link {
+        /* Amazon Music Link */
+        .amazon-music-link {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding: 12px;
-            background: #1DB954;
+            padding: 15px;
+            background: linear-gradient(135deg, #FF9900 0%, #FF6B35 100%);
             color: white;
             border-radius: 8px;
             text-decoration: none;
-            margin-bottom: 10px;
             transition: all 0.3s ease;
-            font-size: 0.9em;
+            font-weight: bold;
+            font-size: 1.05em;
+            text-align: center;
         }
 
-        .spotify-link:hover {
-            background: #1ed760;
-            transform: translateX(5px);
+        .amazon-music-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.4);
         }
 
-        .spotify-icon {
-            font-size: 1.2em;
+        .amazon-icon {
+            font-size: 1.5em;
         }
 
-        /* Fun Fact */
-        .fun-fact {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        /* Daily Positive Notes */
+        .daily-notes-widget {
+            background: white;
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 10px;
-            line-height: 1.6;
-            font-style: italic;
-            font-size: 0.95em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .fun-fact-label {
-            font-size: 0.85em;
-            opacity: 0.8;
-            margin-bottom: 10px;
-            font-style: normal;
-            font-weight: bold;
+        .daily-notes-widget h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
         }
 
-        /* Close Modal */
-        .close-modal {
+        .today-date {
+            font-size: 0.9em;
             color: #999;
-            float: right;
-            font-size: 2em;
+            margin-bottom: 10px;
             font-weight: bold;
+        }
+
+        .note-textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+        }
+
+        .note-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .save-note-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .save-note-btn:hover {
+            background: #764ba2;
+        }
+
+        .saved-notes-list {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .saved-note-item {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+            color: #555;
+            border-left: 3px solid #667eea;
+        }
+
+        .about-modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .about-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-about-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: #999;
             transition: color 0.3s ease;
         }
 
-        .close-modal:hover {
+        .close-about-btn:hover {
             color: #667eea;
         }
 
@@ -469,6 +612,11 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
             .header h1 {
                 font-size: 2em;
             }
@@ -510,15 +658,18 @@
     <div class="main-container">
         <div class="container">
             <div class="header">
-                <h1>🏖️ Lucky's Space</h1>
-                <p>Welcome to my About Me website - Let's make waves! 🌊</p>
+                <div class="header-content">
+                    <h1>Lucky's Space</h1>
+                    <p>Welcome to my About Me website - Let's make waves!</p>
+                </div>
+                <a href="#" class="about-link" onclick="openAbout(); return false;">About Me</a>
             </div>
 
             <div class="content">
                 <!-- Calendar Section -->
                 <div class="section">
-                    <h2>📅 My 2026 Calendar</h2>
-                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get a motivational boost! Days with tasks are highlighted! ✨</p>
+                    <h2>My 2026 Calendar</h2>
+                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get a motivational boost! Today is highlighted!</p>
                     
                     <div class="emoji-legend">
                         <div class="legend-item">
@@ -563,76 +714,30 @@
 
                 <!-- Notes Section -->
                 <div class="section">
-                    <h2>📝 Subject Notes</h2>
-                    <div class="notes-section">
-                        <div class="note">
-                            <h3>📚 Honors Language Arts</h3>
-                            <p>Exploring literature, writing, and communication skills. Analyzing texts, improving essay writing, and developing critical thinking through reading and discussions.</p>
-                        </div>
-
-                        <div class="note">
-                            <h3>🧪 Honors Science</h3>
-                            <p>Deep dive into scientific concepts, experiments, and research. Building lab skills and understanding the natural world through hands-on learning and analysis.</p>
-                        </div>
-
-                        <div class="note">
-                            <h3>🎼 Concert 1</h3>
-                            <p>Learning musical performance, ensemble playing, and artistic expression. Developing confidence in music and preparing for concerts and performances.</p>
-                        </div>
-
-                        <div class="note">
-                            <h3>🌍 Honors Social Studies</h3>
-                            <p>Understanding history, cultures, and societies. Analyzing global issues and developing informed perspectives on current events and historical contexts.</p>
-                        </div>
-
-                        <div class="note">
-                            <h3>➕ Algebra</h3>
-                            <p>Mastering algebraic concepts, equations, and problem-solving. Building strong math foundations for future advanced courses and real-world applications.</p>
-                        </div>
-
-                        <div class="note">
-                            <h3>🇫🇷 French 1</h3>
-                            <p>Learning French language fundamentals including vocabulary, grammar, and pronunciation. Building communication skills and cultural understanding of French-speaking regions.</p>
-                        </div>
-                    </div>
+                    <h2>Subject Notes</h2>
+                    <div class="notes-section" id="notesSection"></div>
                 </div>
             </div>
         </div>
 
         <!-- Sidebar -->
         <div class="sidebar">
-            <!-- Fun Fact Widget -->
+            <!-- Amazon Music Widget -->
             <div class="sidebar-widget">
-                <h3>🎯 Daily Fact</h3>
-                <div class="fun-fact">
-                    <div class="fun-fact-label">Today's Amazing Fact:</div>
-                    <div id="funFact">Loading amazing fact...</div>
-                </div>
+                <h3>Music</h3>
+                <a href="https://music.amazon.com" target="_blank" class="amazon-music-link">
+                    <span class="amazon-icon">🎵</span>
+                    <span>Amazon Music</span>
+                </a>
             </div>
 
-            <!-- Spotify Artists Widget -->
-            <div class="sidebar-widget">
-                <h3>🎵 My Playlist</h3>
-                <a href="https://open.spotify.com/artist/1Xyo4u8uIvLVo3v4ey7CKp" target="_blank" class="spotify-link">
-                    <span class="spotify-icon">🎧</span>
-                    <span>The Weeknd</span>
-                </a>
-                <a href="https://open.spotify.com/artist/06HL4z0CvFAOcV2aVIKUpO" target="_blank" class="spotify-link">
-                    <span class="spotify-icon">🎧</span>
-                    <span>Ariana Grande</span>
-                </a>
-                <a href="https://open.spotify.com/artist/4gzpq5DyGfbdycxwx5mFCd" target="_blank" class="spotify-link">
-                    <span class="spotify-icon">🎧</span>
-                    <span>Dua Lipa</span>
-                </a>
-                <a href="https://open.spotify.com/artist/1vCWHaC5f2uS3yhpwWbIA6" target="_blank" class="spotify-link">
-                    <span class="spotify-icon">🎧</span>
-                    <span>Khalid</span>
-                </a>
-                <a href="https://open.spotify.com/artist/5pKCCKvQVLEiNZsqyLRezJ" target="_blank" class="spotify-link">
-                    <span class="spotify-icon">🎧</span>
-                    <span>Billie Eilish</span>
-                </a>
+            <!-- Daily Positive Notes Widget -->
+            <div class="daily-notes-widget">
+                <h3>Daily Notes</h3>
+                <div class="today-date" id="todayDate"></div>
+                <textarea class="note-textarea" id="dailyNoteText" placeholder="Add a positive note for today..."></textarea>
+                <button class="save-note-btn" onclick="saveDailyNote()">Save Note</button>
+                <div class="saved-notes-list" id="savedNotesList"></div>
             </div>
         </div>
     </div>
@@ -640,10 +745,32 @@
     <!-- Motivational Modal -->
     <div id="motivationalModal" class="modal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeMotivational()">&times;</span>
-            <h2>✨ Your Daily Motivation</h2>
+            <span style="float: right; font-size: 2em; cursor: pointer; color: #999;" onclick="closeMotivational()">&times;</span>
+            <h2>Your Daily Motivation</h2>
             <div id="speechContent"></div>
-            <button class="close-btn" onclick="closeMotivational()">Got It! Let's Go 🚀</button>
+            <button class="close-btn" onclick="closeMotivational()">Got It! Let's Go</button>
+        </div>
+    </div>
+
+    <!-- About Me Modal -->
+    <div id="aboutModal" class="about-modal">
+        <div class="about-modal-content">
+            <span class="close-about-btn" onclick="closeAbout()">&times;</span>
+            <h2 style="color: #667eea; margin-bottom: 20px;">About Me</h2>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                Hi! I'm Lucky, a passionate student exploring my interests across multiple disciplines. I'm currently focusing on:
+            </p>
+            <ul style="color: #555; line-height: 1.8; margin-left: 20px; margin-bottom: 15px;">
+                <li><strong>Language & Literature:</strong> Exploring Honors Language Arts with a focus on critical thinking and writing</li>
+                <li><strong>Science:</strong> Diving into Honors Science to understand the world through experimentation</li>
+                <li><strong>Music:</strong> Performing in Concert 1, developing musical skills and artistic expression</li>
+                <li><strong>Global Perspectives:</strong> Studying Honors Social Studies to understand different cultures and histories</li>
+                <li><strong>Mathematics:</strong> Building strong foundations through Algebra for future advanced courses</li>
+                <li><strong>Languages:</strong> Learning French 1 to expand my communication abilities</li>
+            </ul>
+            <p style="color: #555; line-height: 1.8;">
+                This website is my personal space for organization, motivation, and reflection. I use it to track my daily goals, celebrate my achievements, and stay inspired on my educational journey.
+            </p>
         </div>
     </div>
 
@@ -654,6 +781,8 @@
         
         const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         let currentMonth = new Date().getMonth();
+        const today = new Date();
+        const todayDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
 
         // Motivational Speeches
         const motivationalSpeeches = [
@@ -671,56 +800,32 @@
             "You have already overcome so much. Look how far you've come! That same strength that got you here will take you even further. Trust yourself and keep believing!"
         ];
 
-        // Fun Facts Database
-        const funFacts = [
-            "🧠 Honey never spoils! Archaeologists found 3000-year-old honey in Egyptian tombs that was still perfectly edible.",
-            "🌍 The Earth spins faster at the equator than at the poles.",
-            "🦑 Octopuses have three hearts - two pump blood to the gills, one to the rest of the body.",
-            "📚 Reading improves brain connectivity and boosts memory more than watching videos.",
-            "🌳 Trees can communicate with each other through an underground network called the 'Wood Wide Web'.",
-            "🐝 Bees can recognize human faces and remember them for several days.",
-            "💪 Your muscles don't only grow at the gym - they grow during rest when you sleep!",
-            "🎵 Listening to music you love activates the same reward part of your brain as food or drugs!",
-            "🌙 A day on Venus is longer than a year on Venus!",
-            "🐠 Goldfish have better memory than most people think - they can remember things for months!",
-            "☕ Coffee was discovered by goats! A goat herder noticed his goats becoming energetic after eating coffee berries.",
-            "💎 Diamonds rain on Jupiter and Saturn!",
-            "🧬 Your DNA is 99.9% the same as every other human - we're all connected!",
-            "🎯 Setting goals activates the creative part of your brain and helps you notice opportunities.",
-            "🏃 Running boosts your creativity and mood by releasing endorphins!",
-            "✨ Your body replaces about 1 million cells every second - you're constantly renewing!",
-            "🌟 The sun is so large that 1.3 million Earths could fit inside it!",
-            "🧘 Meditation can physically change your brain structure and reduce stress!",
-            "📱 Screen time before bed affects your sleep, but a good book helps you sleep better!",
-            "🎨 Drawing activates multiple parts of your brain and improves memory retention!"
+        // Subject notes data
+        const subjects = [
+            { title: "Honors Language Arts", emoji: "📚" },
+            { title: "Honors Science", emoji: "🧪" },
+            { title: "Concert 1", emoji: "🎼" },
+            { title: "Honors Social Studies", emoji: "🌍" },
+            { title: "Algebra", emoji: "➕" },
+            { title: "French 1", emoji: "🇫🇷" }
         ];
 
-        // Load stored tasks from localStorage
-        function getStoredTasks() {
-            const stored = localStorage.getItem('calendarTasks');
-            return stored ? JSON.parse(stored) : {};
+        // Load stored data
+        function getStoredData() {
+            const stored = localStorage.getItem('luckyData');
+            return stored ? JSON.parse(stored) : { tasks: {}, notes: {}, dailyNotes: {} };
         }
 
-        // Save tasks to localStorage
-        function saveTasks(tasks) {
-            localStorage.setItem('calendarTasks', JSON.stringify(tasks));
+        function saveAllData(data) {
+            localStorage.setItem('luckyData', JSON.stringify(data));
         }
 
-        // Get random beach emoji
         function getRandomEmoji() {
             return beachEmojis[Math.floor(Math.random() * beachEmojis.length)];
         }
 
-        // Get random motivational speech
         function getRandomSpeech() {
             return motivationalSpeeches[Math.floor(Math.random() * motivationalSpeeches.length)];
-        }
-
-        // Get daily fun fact
-        function getDailyFunFact() {
-            const today = new Date();
-            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-            return funFacts[dayOfYear % funFacts.length];
         }
 
         // Show motivational modal
@@ -738,18 +843,95 @@
             modal.classList.remove('show');
         }
 
-        // Close modal when clicking outside
+        // About Modal
+        function openAbout() {
+            const modal = document.getElementById('aboutModal');
+            modal.classList.add('show');
+        }
+
+        function closeAbout() {
+            const modal = document.getElementById('aboutModal');
+            modal.classList.remove('show');
+        }
+
+        // Close modals when clicking outside
         window.onclick = function(event) {
-            const modal = document.getElementById('motivationalModal');
-            if (event.target === modal) {
-                modal.classList.remove('show');
+            const motivationalModal = document.getElementById('motivationalModal');
+            const aboutModal = document.getElementById('aboutModal');
+            if (event.target === motivationalModal) {
+                motivationalModal.classList.remove('show');
+            }
+            if (event.target === aboutModal) {
+                aboutModal.classList.remove('show');
             }
         }
 
-        // Create all month pages
+        // Daily Notes
+        function saveDailyNote() {
+            const data = getStoredData();
+            const noteText = document.getElementById('dailyNoteText').value;
+            if (noteText.trim()) {
+                if (!data.dailyNotes[todayDate]) {
+                    data.dailyNotes[todayDate] = [];
+                }
+                data.dailyNotes[todayDate].push(noteText);
+                saveAllData(data);
+                document.getElementById('dailyNoteText').value = '';
+                loadDailyNotes();
+            }
+        }
+
+        function loadDailyNotes() {
+            const data = getStoredData();
+            const notesList = document.getElementById('savedNotesList');
+            const notes = data.dailyNotes[todayDate] || [];
+            notesList.innerHTML = notes.map((note, idx) => `
+                <div class="saved-note-item">
+                    ${note}
+                    <button onclick="deleteDailyNote(${idx})" style="float: right; background: none; border: none; color: #999; cursor: pointer;">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function deleteDailyNote(idx) {
+            const data = getStoredData();
+            if (data.dailyNotes[todayDate]) {
+                data.dailyNotes[todayDate].splice(idx, 1);
+                saveAllData(data);
+                loadDailyNotes();
+            }
+        }
+
+        // Create subject notes
+        function createSubjectNotes() {
+            const data = getStoredData();
+            const notesSection = document.getElementById('notesSection');
+            notesSection.innerHTML = subjects.map(subject => {
+                const key = subject.title;
+                const content = data.notes[key] || '';
+                return `
+                    <div class="note">
+                        <h3>${subject.emoji} ${subject.title}</h3>
+                        <textarea id="note-${key}" placeholder="Click to edit your notes...">${content}</textarea>
+                        <button class="save-btn" onclick="saveSubjectNote('${key}')">Save</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function saveSubjectNote(subject) {
+            const data = getStoredData();
+            const content = document.getElementById(`note-${subject}`).value;
+            data.notes[subject] = content;
+            saveAllData(data);
+            alert('Notes saved!');
+        }
+
+        // Create calendar
         function createAllMonths() {
             const pagesContainer = document.getElementById('calendarPages');
-            const tasks = getStoredTasks();
+            const data = getStoredData();
+            pagesContainer.innerHTML = '';
 
             for (let month = 0; month < 12; month++) {
                 const monthPage = document.createElement('div');
@@ -782,27 +964,24 @@
                 const daysDiv = document.createElement('div');
                 daysDiv.className = 'days';
 
-                // Get first day of month
                 const firstDay = new Date(2026, month, 1).getDay();
                 
-                // Empty cells before month starts
                 for (let i = 0; i < firstDay; i++) {
                     const emptyDiv = document.createElement('div');
                     emptyDiv.className = 'day empty';
                     daysDiv.appendChild(emptyDiv);
                 }
 
-                // Days of month
                 for (let day = 1; day <= daysInMonth[month]; day++) {
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'day';
 
-                    const dateKey = `${month}-${day}`;
-                    const taskData = tasks[dateKey];
+                    const dateKey = `${2026}-${month}-${day}`;
+                    const taskData = data.tasks[dateKey];
 
-                    // Add has-task class if task exists
-                    if (taskData && taskData.note) {
-                        dayDiv.classList.add('has-task');
+                    // Check if today
+                    if (today.getFullYear() === 2026 && today.getMonth() === month && today.getDate() === day) {
+                        dayDiv.classList.add('today');
                     }
 
                     const emoji = document.createElement('span');
@@ -819,13 +998,11 @@
                         showMotivational();
                         const note = prompt(`Enter task for ${months[month]} ${day}:`);
                         if (note !== null) {
-                            tasks[dateKey] = {
+                            data.tasks[dateKey] = {
                                 emoji: taskData?.emoji || emoji.textContent,
                                 note: note
                             };
-                            saveTasks(tasks);
-                            // Add highlight
-                            dayDiv.classList.add('has-task');
+                            saveAllData(data);
                             alert(`Task saved: "${note}"`);
                         }
                     });
@@ -839,7 +1016,7 @@
             }
         }
 
-        // Create month selector buttons
+        // Month selector
         function createMonthSelector() {
             const selector = document.getElementById('monthSelector');
             for (let i = 0; i < 12; i++) {
@@ -854,7 +1031,6 @@
             }
         }
 
-        // Go to specific month
         function goToMonth(monthIndex) {
             const pages = document.querySelectorAll('.month-page');
             const buttons = document.querySelectorAll('.month-btn');
@@ -867,29 +1043,29 @@
             currentMonth = monthIndex;
         }
 
-        // Navigate to next month
         function nextMonth() {
             currentMonth = (currentMonth + 1) % 12;
             goToMonth(currentMonth);
         }
 
-        // Navigate to previous month
         function previousMonth() {
             currentMonth = (currentMonth - 1 + 12) % 12;
             goToMonth(currentMonth);
         }
 
-        // Go to current month
         function goToCurrentMonth() {
-            const today = new Date();
             goToMonth(today.getMonth());
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('todayDate').textContent = `${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+            
             createAllMonths();
             createMonthSelector();
-            document.getElementById('funFact').textContent = getDailyFunFact();
+            createSubjectNotes();
+            loadDailyNotes();
         });
     </script>
 </body>
