@@ -36,7 +36,7 @@
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 50%, #3d7a52 100%);
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -44,22 +44,63 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            position: relative;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 200"><defs><pattern id="ocean" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse"><path d="M0,100 Q50,80 100,100 T200,100" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/><text x="80" y="60" font-size="40" fill="rgba(255,255,255,0.15)">🐚</text><text x="20" y="120" font-size="35" fill="rgba(255,255,255,0.1)">🦀</text><text x="150" y="40" font-size="38" fill="rgba(255,255,255,0.12)">🐠</text></pattern></defs><rect width="1200" height="200" fill="url(%23ocean)"/></svg>');
+            background-size: 400px 200px;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(26, 71, 42, 0.8) 0%, rgba(45, 90, 61, 0.8) 50%, rgba(61, 122, 82, 0.8) 100%);
+            pointer-events: none;
+            z-index: 1;
         }
 
         .header-content {
             flex: 1;
             text-align: center;
+            position: relative;
+            z-index: 2;
+            min-width: 300px;
         }
 
         .header h1 {
             font-size: 3em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .header h1:hover {
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .header h1 input {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            width: 90%;
+            text-align: center;
+        }
+
+        .header h1 input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .header p {
             font-size: 1.2em;
             opacity: 0.9;
+            position: relative;
+            z-index: 2;
         }
 
         .about-link {
@@ -72,11 +113,13 @@
             transition: all 0.3s ease;
             font-weight: bold;
             cursor: pointer;
+            position: relative;
+            z-index: 2;
         }
 
         .about-link:hover {
             background: white;
-            color: #667eea;
+            color: #1a472a;
             transform: scale(1.05);
         }
 
@@ -175,10 +218,6 @@
         .day.today .day-number {
             color: white;
             font-weight: bold;
-        }
-
-        .day.today .emoji {
-            filter: brightness(1.2);
         }
 
         .day-number {
@@ -324,32 +363,6 @@
 
         .save-btn:hover {
             background: #764ba2;
-        }
-
-        .emoji-legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 30px 0;
-            padding: 20px;
-            background: white;
-            border-radius: 10px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .legend-emoji {
-            font-size: 1.5em;
-        }
-
-        .legend-text {
-            color: #555;
-            font-size: 0.9em;
         }
 
         /* Sidebar Styles */
@@ -499,37 +512,16 @@
             font-weight: bold;
         }
 
-        .note-textarea {
-            width: 100%;
-            min-height: 100px;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
-            border-radius: 5px;
-            font-family: inherit;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-        }
-
-        .note-textarea:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
-        }
-
-        .save-note-btn {
-            background: #667eea;
+        .daily-quote {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .save-note-btn:hover {
-            background: #764ba2;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            font-size: 0.95em;
+            font-style: italic;
+            text-align: center;
         }
 
         .saved-notes-list {
@@ -587,6 +579,50 @@
 
         .close-about-btn:hover {
             color: #667eea;
+        }
+
+        .about-modal-content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .about-modal-content textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: inherit;
+            resize: vertical;
+            font-size: 1em;
+        }
+
+        .about-modal-content textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+        }
+
+        .about-save-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .about-save-btn:hover {
+            background: #764ba2;
+        }
+
+        .about-display {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1em;
         }
 
         @media (max-width: 1200px) {
@@ -659,7 +695,8 @@
         <div class="container">
             <div class="header">
                 <div class="header-content">
-                    <h1>Lucky's Space</h1>
+                    <h1 id="titleDisplay" onclick="editTitle()">Lucky's Space</h1>
+                    <input type="text" id="titleInput" style="display: none;" value="Lucky's Space">
                     <p>Welcome to my About Me website - Let's make waves!</p>
                 </div>
                 <a href="#" class="about-link" onclick="openAbout(); return false;">About Me</a>
@@ -668,35 +705,8 @@
             <div class="content">
                 <!-- Calendar Section -->
                 <div class="section">
-                    <h2>My 2026 Calendar</h2>
-                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get a motivational boost! Today is highlighted!</p>
-                    
-                    <div class="emoji-legend">
-                        <div class="legend-item">
-                            <span class="legend-emoji">🏖️</span>
-                            <span class="legend-text">Relax/Break</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-emoji">🌊</span>
-                            <span class="legend-text">Study/Work</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-emoji">🏝️</span>
-                            <span class="legend-text">Project Work</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-emoji">🌅</span>
-                            <span class="legend-text">Exercise</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-emoji">🐚</span>
-                            <span class="legend-text">Creative Work</span>
-                        </div>
-                        <div class="legend-item">
-                            <span class="legend-emoji">🏄</span>
-                            <span class="legend-text">Social/Fun</span>
-                        </div>
-                    </div>
+                    <h2 id="calendarTitle">My Calendar</h2>
+                    <p style="color: #666; margin-bottom: 20px;">Click on any day to add tasks and get motivated! Today is highlighted!</p>
 
                     <!-- Month Selector -->
                     <div class="month-selector" id="monthSelector"></div>
@@ -733,10 +743,9 @@
 
             <!-- Daily Positive Notes Widget -->
             <div class="daily-notes-widget">
-                <h3>Daily Notes</h3>
+                <h3>Daily Motivation</h3>
                 <div class="today-date" id="todayDate"></div>
-                <textarea class="note-textarea" id="dailyNoteText" placeholder="Add a positive note for today..."></textarea>
-                <button class="save-note-btn" onclick="saveDailyNote()">Save Note</button>
+                <div class="daily-quote" id="dailyQuote"></div>
                 <div class="saved-notes-list" id="savedNotesList"></div>
             </div>
         </div>
@@ -756,21 +765,13 @@
     <div id="aboutModal" class="about-modal">
         <div class="about-modal-content">
             <span class="close-about-btn" onclick="closeAbout()">&times;</span>
-            <h2 style="color: #667eea; margin-bottom: 20px;">About Me</h2>
-            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
-                Hi! I'm Lucky, a passionate student exploring my interests across multiple disciplines. I'm currently focusing on:
-            </p>
-            <ul style="color: #555; line-height: 1.8; margin-left: 20px; margin-bottom: 15px;">
-                <li><strong>Language & Literature:</strong> Exploring Honors Language Arts with a focus on critical thinking and writing</li>
-                <li><strong>Science:</strong> Diving into Honors Science to understand the world through experimentation</li>
-                <li><strong>Music:</strong> Performing in Concert 1, developing musical skills and artistic expression</li>
-                <li><strong>Global Perspectives:</strong> Studying Honors Social Studies to understand different cultures and histories</li>
-                <li><strong>Mathematics:</strong> Building strong foundations through Algebra for future advanced courses</li>
-                <li><strong>Languages:</strong> Learning French 1 to expand my communication abilities</li>
-            </ul>
-            <p style="color: #555; line-height: 1.8;">
-                This website is my personal space for organization, motivation, and reflection. I use it to track my daily goals, celebrate my achievements, and stay inspired on my educational journey.
-            </p>
+            <h2>About Me</h2>
+            <div id="aboutEditContainer">
+                <button class="about-save-btn" onclick="enableAboutEdit()">Edit</button>
+            </div>
+            <div id="aboutDisplay" class="about-display"></div>
+            <textarea id="aboutTextarea" style="display: none;" placeholder="Write about yourself..."></textarea>
+            <button class="about-save-btn" id="aboutSaveBtn" style="display: none;" onclick="saveAbout()">Save</button>
         </div>
     </div>
 
@@ -780,7 +781,27 @@
                        'July', 'August', 'September', 'October', 'November', 'December'];
         
         const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        
+        const dailyMotivationQuotes = [
+            "Your potential is endless. Each day is a new opportunity to prove to yourself what you're capable of. Push yourself a little harder today! 💪",
+            "Hard work doesn't guarantee success, but it guarantees growth. And growth is where all success begins. Keep pushing forward! 🚀",
+            "The person you want to become is built through the small choices you make today. Study hard, work hard, be hard to beat! 🔥",
+            "Success is not final, failure is not fatal. It's the courage to continue that counts. You've got this! ✨",
+            "Every hour you invest in studying is an investment in your future. Don't waste it. Make it count! 📚",
+            "Discipline is choosing what you want most over what you want now. Your future self will thank you for the work you do today! 🎯",
+            "The only way to do great work is to love what you do. Find your passion and let it drive your success! ❤️",
+            "You're stronger than your obstacles. You're smarter than your doubts. You're capable of more than you believe! 🌟",
+            "Hard work beats talent when talent isn't willing to work hard. Show up, do the work, be great! 💯",
+            "Don't compare your Chapter 1 to someone else's Chapter 20. You're on your own journey. Keep moving! 🛤️",
+            "The best time to plant a tree was 20 years ago. The second best time is now. Start today! 🌱",
+            "You are the architect of your own destiny. Build it one day at a time through dedication and hard work! 🏗️",
+            "Wake up with determination, go to bed with satisfaction. Each day is a gift. Make it count! 🎁",
+            "Your effort today determines your success tomorrow. Stop waiting for the perfect moment and start now! ⏰",
+            "The hustle never stops for those who want to win. Keep grinding, keep growing, keep glowing! 🌞"
+        ];
+
         let currentMonth = new Date().getMonth();
+        let currentYear = new Date().getFullYear();
         const today = new Date();
         const todayDate = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
 
@@ -813,7 +834,7 @@
         // Load stored data
         function getStoredData() {
             const stored = localStorage.getItem('luckyData');
-            return stored ? JSON.parse(stored) : { tasks: {}, notes: {}, dailyNotes: {} };
+            return stored ? JSON.parse(stored) : { tasks: {}, notes: {}, dailyNotes: {}, title: "Lucky's Space", about: "" };
         }
 
         function saveAllData(data) {
@@ -826,6 +847,40 @@
 
         function getRandomSpeech() {
             return motivationalSpeeches[Math.floor(Math.random() * motivationalSpeeches.length)];
+        }
+
+        function getRandomQuote() {
+            return dailyMotivationQuotes[Math.floor(Math.random() * dailyMotivationQuotes.length)];
+        }
+
+        // Title Editing
+        function editTitle() {
+            const titleDisplay = document.getElementById('titleDisplay');
+            const titleInput = document.getElementById('titleInput');
+            titleDisplay.style.display = 'none';
+            titleInput.style.display = 'block';
+            titleInput.focus();
+
+            function saveTitle() {
+                const newTitle = titleInput.value || "Lucky's Space";
+                titleDisplay.textContent = newTitle;
+                titleDisplay.style.display = 'block';
+                titleInput.style.display = 'none';
+                const data = getStoredData();
+                data.title = newTitle;
+                saveAllData(data);
+                updateCalendarTitle();
+            }
+
+            titleInput.onblur = saveTitle;
+            titleInput.onkeypress = (e) => {
+                if (e.key === 'Enter') saveTitle();
+            };
+        }
+
+        function updateCalendarTitle() {
+            const data = getStoredData();
+            document.getElementById('calendarTitle').textContent = `My ${currentYear} Calendar`;
         }
 
         // Show motivational modal
@@ -846,12 +901,41 @@
         // About Modal
         function openAbout() {
             const modal = document.getElementById('aboutModal');
+            const data = getStoredData();
+            const aboutDisplay = document.getElementById('aboutDisplay');
+            aboutDisplay.textContent = data.about || "Click Edit to add your About Me section!";
             modal.classList.add('show');
         }
 
         function closeAbout() {
             const modal = document.getElementById('aboutModal');
             modal.classList.remove('show');
+        }
+
+        function enableAboutEdit() {
+            const data = getStoredData();
+            document.getElementById('aboutDisplay').style.display = 'none';
+            document.getElementById('aboutTextarea').style.display = 'block';
+            document.getElementById('aboutTextarea').value = data.about || '';
+            document.getElementById('aboutEditContainer').innerHTML = '<button class="about-save-btn" onclick="disableAboutEdit()">Cancel</button>';
+            document.getElementById('aboutSaveBtn').style.display = 'block';
+        }
+
+        function disableAboutEdit() {
+            document.getElementById('aboutDisplay').style.display = 'block';
+            document.getElementById('aboutTextarea').style.display = 'none';
+            document.getElementById('aboutSaveBtn').style.display = 'none';
+            document.getElementById('aboutEditContainer').innerHTML = '<button class="about-save-btn" onclick="enableAboutEdit()">Edit</button>';
+        }
+
+        function saveAbout() {
+            const about = document.getElementById('aboutTextarea').value;
+            const data = getStoredData();
+            data.about = about;
+            saveAllData(data);
+            document.getElementById('aboutDisplay').textContent = about || "No content yet";
+            disableAboutEdit();
+            alert('About Me saved!');
         }
 
         // Close modals when clicking outside
@@ -867,39 +951,9 @@
         }
 
         // Daily Notes
-        function saveDailyNote() {
-            const data = getStoredData();
-            const noteText = document.getElementById('dailyNoteText').value;
-            if (noteText.trim()) {
-                if (!data.dailyNotes[todayDate]) {
-                    data.dailyNotes[todayDate] = [];
-                }
-                data.dailyNotes[todayDate].push(noteText);
-                saveAllData(data);
-                document.getElementById('dailyNoteText').value = '';
-                loadDailyNotes();
-            }
-        }
-
         function loadDailyNotes() {
-            const data = getStoredData();
-            const notesList = document.getElementById('savedNotesList');
-            const notes = data.dailyNotes[todayDate] || [];
-            notesList.innerHTML = notes.map((note, idx) => `
-                <div class="saved-note-item">
-                    ${note}
-                    <button onclick="deleteDailyNote(${idx})" style="float: right; background: none; border: none; color: #999; cursor: pointer;">✕</button>
-                </div>
-            `).join('');
-        }
-
-        function deleteDailyNote(idx) {
-            const data = getStoredData();
-            if (data.dailyNotes[todayDate]) {
-                data.dailyNotes[todayDate].splice(idx, 1);
-                saveAllData(data);
-                loadDailyNotes();
-            }
+            const quote = getRandomQuote();
+            document.getElementById('dailyQuote').textContent = `"${quote}"`;
         }
 
         // Create subject notes
@@ -964,7 +1018,7 @@
                 const daysDiv = document.createElement('div');
                 daysDiv.className = 'days';
 
-                const firstDay = new Date(2026, month, 1).getDay();
+                const firstDay = new Date(currentYear, month, 1).getDay();
                 
                 for (let i = 0; i < firstDay; i++) {
                     const emptyDiv = document.createElement('div');
@@ -976,11 +1030,11 @@
                     const dayDiv = document.createElement('div');
                     dayDiv.className = 'day';
 
-                    const dateKey = `${2026}-${month}-${day}`;
+                    const dateKey = `${currentYear}-${month}-${day}`;
                     const taskData = data.tasks[dateKey];
 
                     // Check if today
-                    if (today.getFullYear() === 2026 && today.getMonth() === month && today.getDate() === day) {
+                    if (today.getFullYear() === currentYear && today.getMonth() === month && today.getDate() === day) {
                         dayDiv.classList.add('today');
                     }
 
@@ -1045,16 +1099,30 @@
 
         function nextMonth() {
             currentMonth = (currentMonth + 1) % 12;
+            if (currentMonth === 0) {
+                currentYear++;
+                createAllMonths();
+                updateCalendarTitle();
+            }
             goToMonth(currentMonth);
         }
 
         function previousMonth() {
             currentMonth = (currentMonth - 1 + 12) % 12;
+            if (currentMonth === 11) {
+                currentYear--;
+                createAllMonths();
+                updateCalendarTitle();
+            }
             goToMonth(currentMonth);
         }
 
         function goToCurrentMonth() {
-            goToMonth(today.getMonth());
+            currentYear = new Date().getFullYear();
+            currentMonth = new Date().getMonth();
+            createAllMonths();
+            updateCalendarTitle();
+            goToMonth(currentMonth);
         }
 
         // Initialize
@@ -1062,10 +1130,14 @@
             const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             document.getElementById('todayDate').textContent = `${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
             
+            const data = getStoredData();
+            document.getElementById('titleDisplay').textContent = data.title || "Lucky's Space";
+            
             createAllMonths();
             createMonthSelector();
             createSubjectNotes();
             loadDailyNotes();
+            updateCalendarTitle();
         });
     </script>
 </body>
